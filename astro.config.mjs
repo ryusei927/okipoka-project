@@ -1,10 +1,8 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import vercel from '@astrojs/vercel/serverless';
 
-// https://astro.build/config
+// Static build for Vercel (no server runtime needed)
 export default defineConfig({
-  output: 'server',
-  adapter: vercel(),
+  output: 'static',
   integrations: [react()],
 });
