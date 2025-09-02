@@ -1,0 +1,11 @@
+---
+import AppLayout from '../../../layouts/AppLayout.astro';
+import StoreBlogList from '../../../components/StoreBlogList.tsx';
+const { storeId } = Astro.params;
+---
+<AppLayout>
+  <div class="container">
+    <h1 class="title">店舗ブログ</h1>
+    <StoreBlogList client:load storeId={storeId ?? ''} />
+  </div>
+</AppLayout>

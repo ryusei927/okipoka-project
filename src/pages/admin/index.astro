@@ -1,0 +1,15 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import RequireRole from "../../components/RequireRole.tsx";
+import AdminConsole from "../../components/AdminConsole.tsx";
+---
+<AppLayout>
+  <div class="container">
+    <h1 class="section__title">運営コンソール</h1>
+
+    <!-- admin だけ閲覧可 -->
+<RequireRole client:load allow={["admin"]}>
+  <AdminConsole client:load />
+</RequireRole>
+  </div>
+</AppLayout>

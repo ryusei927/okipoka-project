@@ -1,0 +1,23 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import UpcomingTournaments from '../../components/UpcomingTournaments.tsx';
+---
+<AppLayout>
+  <div class="container">
+    <h1 class="section__title">大会一覧</h1>
+
+    <!-- フィルタ行（箱だけ。後で機能をつなぐ） -->
+    <div class="toolbar" style="margin-bottom:12px;">
+      <button class="chip chip--on">すべて</button>
+      <button class="chip">今日</button>
+      <button class="chip">明日</button>
+      <button class="chip">今週</button>
+      <span class="chip muted" style="cursor:default">検索（準備中）</span>
+    </div>
+
+    <!-- 一覧カード -->
+    <div class="grid grid--cards">
+      <UpcomingTournaments client:load />
+    </div>
+  </div>
+</AppLayout>

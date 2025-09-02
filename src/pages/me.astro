@@ -1,0 +1,21 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import AuthButton from '../components/AuthButton.tsx';
+import FollowedStores from '../components/FollowedStores.tsx';
+import FollowedTournaments from '../components/FollowedTournaments.tsx';
+---
+<AppLayout>
+  <div class="container">
+    <h1 class="section__title">マイページ</h1>
+    <div class="surface" style="padding:16px;border-radius:14px;margin-bottom:16px;">
+      <p class="muted">ログインするとフォロー機能が使えます。</p>
+      <div style="margin-top:8px"><AuthButton client:load /></div>
+    </div>
+
+    <h2 class="section__title">フォロー中の店舗</h2>
+    <FollowedStores client:load />
+
+    <h2 class="section__title" style="margin-top:16px;">フォロー中の大会</h2>
+    <FollowedTournaments client:load />
+  </div>
+</AppLayout>

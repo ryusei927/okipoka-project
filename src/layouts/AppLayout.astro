@@ -1,0 +1,49 @@
+---
+import "../styles/theme.css";
+const tabs = [
+  { href: "/", label: "ホーム" },
+  { href: "/tournaments", label: "大会" },
+  { href: "/stores", label: "店舗" },
+  { href: "/me", label: "マイ" },
+];
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <slot name="head" />
+  </head>
+  <body>
+    <!-- Top AppBar -->
+    <header class="appbar">
+      <div class="appbar__row container" style="padding-inline:0">
+        <div class="brand">
+          <img src="/images/logo2.png" alt="OKIPOKA" style="height:28px;" />
+        </div>
+        <div class="toolbar">
+          <slot name="actions" />
+        </div>
+      </div>
+    </header>
+
+    <!-- Page -->
+    <main class="page">
+      <slot />
+    </main>
+
+    <!-- Bottom Tabs -->
+    <nav class="tabbar">
+      {
+        tabs.map((t) => (
+          <a
+            href={t.href}
+            aria-current={Astro.url.pathname === t.href ? "page" : undefined}
+          >
+            {t.label}
+          </a>
+        ))
+      }
+    </nav>
+  </body>
+</html>

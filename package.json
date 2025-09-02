@@ -9,6 +9,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.13.5"
+    "@astrojs/node": "^9.4.3",
+    "@line/bot-sdk": "^10.2.0",
+    "astro": "^5.13.5",
+    "dayjs": "^1.11.18",
+    "firebase": "^12.2.1",
+    "marked": "^16.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@types/node": "^24.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
+    "@vite-pwa/astro": "^1.1.0",
+    "typescript": "^5.9.2"
   }
 }

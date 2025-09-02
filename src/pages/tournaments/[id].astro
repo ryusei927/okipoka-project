@@ -1,0 +1,15 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import TournamentDetail from '../../components/TournamentDetail.tsx';
+
+const { id } = Astro.params;
+
+// この行を追加する
+export const prerender = false;
+---
+
+<AppLayout>
+  <div class="container">
+    <TournamentDetail client:load id={id} />
+  </div>
+</AppLayout>

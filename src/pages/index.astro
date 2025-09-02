@@ -1,11 +1,32 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import AppLayout from '../layouts/AppLayout.astro';
+import AuthButton from '../components/AuthButton.tsx';
+import UpcomingTournaments from '../components/UpcomingTournaments.tsx';
 ---
+<AppLayout>
+  <div class="container">
+    <!-- ヘッダ行（右にログインボタン） -->
+    <div class="section" style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+      <h1 class="section__title">今日・明日のトーナメント</h1>
+      <AuthButton client:load />
+    </div>
 
-<Layout>
-	<Welcome />
-</Layout>
+    <!-- フィルタ行（箱だけ先に） -->
+    <div class="toolbar" style="margin-bottom:12px;">
+      <button class="chip chip--on">今日</button>
+      <button class="chip">明日</button>
+      <button class="chip">今週</button>
+      <span class="chip muted" style="cursor:default">近い順（準備中）</span>
+    </div>
+
+    <!-- カードグリッド -->
+    <div class="grid grid--cards">
+      <!-- 読み込み中プレースホルダ（軽量） -->
+      <div class="card" style="display:none">
+        <div class="thumb skel"></div><div style="padding:10px 12px"><div class="skel" style="height:16px;width:70%"></div></div>
+      </div>
+
+      <UpcomingTournaments client:load />
+    </div>
+  </div>
+</AppLayout>
