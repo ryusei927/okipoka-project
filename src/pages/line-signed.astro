@@ -1,6 +1,8 @@
 ---
-import '../scripts/line-signed.ts';
+import { auth } from '../lib/firebase'; // Firebase 初期化から export した auth を利用
+import { signInWithCustomToken } from 'firebase/auth';
 ---
+
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
@@ -8,5 +10,25 @@ import '../scripts/line-signed.ts';
   </head>
   <body>
     <p>LINE サインイン処理中…</p>
+    <script type="module">
+      (async () => {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const token = params.get('token');
+          if (!token) {
+            alert("サインイントークンが見つかりません。");
+            location.replace("/");
+            return;
+          }
+          // Firebase クライアントでサインイン
+          await signInWithCustomToken(auth, token);
+          location.replace("/");
+        } catch (err) {
+          console.error("[line-signed] error:", err);
+          alert("サインインに失敗しました");
+          location.replace("/");
+        }
+      })();
+    </script>
   </body>
 </html>
