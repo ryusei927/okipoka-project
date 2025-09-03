@@ -1,4 +1,4 @@
-import { auth } from '../lib/firebase';
+import { auth } from '/src/lib/firebase.ts';
 import { signInWithCustomToken } from 'firebase/auth';
 
 (async () => {
@@ -10,10 +10,10 @@ import { signInWithCustomToken } from 'firebase/auth';
 
     await signInWithCustomToken(auth, token);
     console.log('[line-signed] signIn success');
-    location.replace('/');
+    window.location.href = '/'; // replace でもOK
   } catch (e) {
     console.error('[line-signed] signIn error:', e);
     alert('LINEサインインに失敗しました。トップに戻ります。');
-    location.replace('/');
+    window.location.href = '/';
   }
 })();
