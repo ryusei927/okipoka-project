@@ -3,33 +3,11 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>LINE サインイン中…</title>
+    <title>LINE サインイン処理中…</title>
   </head>
   <body>
     <p>LINE サインイン処理中…</p>
-    <script type="module">
-      // ★ 相対パスに変更：pages → lib は 1 つ上の階層
-      import { auth } from '../lib/firebase.ts';
-      import { signInWithCustomToken } from 'firebase/auth';
-
-      (async () => {
-        try {
-          const params = new URLSearchParams(location.search);
-          const token = params.get('token');
-          if (!token) {
-            console.error('[line-signed] token missing');
-            alert('サインイン用トークンが見つかりません。もう一度お試しください。');
-            location.replace('/');
-            return;
-          }
-          await signInWithCustomToken(auth, token);
-          location.replace('/');
-        } catch (e) {
-          console.error('[line-signed] signIn error:', e);
-          alert('サインインに失敗しました。ページを再読み込みしてもう一度お試しください。');
-          location.replace('/');
-        }
-      })();
-    </script>
+    <!-- ここを Astro.resolve ではなく相対パスに修正 -->
+    <script type="module" src="../scripts/line-signed.ts"></script>
   </body>
 </html>
