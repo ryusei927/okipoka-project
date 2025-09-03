@@ -33,11 +33,11 @@ if (import.meta.env.DEV) {
   });
 }
 
-// 必須値が欠けていたらわかりやすいエラーを投げる
+// 必須値が欠けていたらわかりやすい警告を出す（UIを壊さない）
 const missing = Object.entries(envCfg).filter(([, v]) => !v);
 if (missing.length) {
   const names = missing.map(([k]) => k).join(', ');
-  throw new Error(
+  console.warn(
     `[firebase.ts] Missing Firebase env values: ${names}
 - .env.local に VITE_FIREBASE_* が入っているか
 - 変更後に "npm run dev" を再起動したか
@@ -45,6 +45,9 @@ if (missing.length) {
 - storageBucket は "<project-id>.appspot.com" か
 を確認してください。`
   );
+  // NOTE:
+  // 例外は投げずに続行します。実環境（Vercel）では値が入っていればこのブロックは通りません。
+  // ローカルで不足している場合は、ログインなどの機能は動かない可能性がありますが、UIは壊しません。
 }
 
 const app = getApps().length ? getApps()[0] : initializeApp(envCfg);
