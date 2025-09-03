@@ -1,33 +1,15 @@
-
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <title>LINE サインイン処理中…</title>
-  </head>
-  <body>
-    <p>LINE サインイン処理中…</p>
-
-    <script type="module">
-      // ★ ブラウザ実行のスクリプト内で import する（これがポイント）
-      import { auth } from '../lib/firebase';
-      import { signInWithCustomToken } from 'firebase/auth';
-
-      (async () => {
-        try {
-          const params = new URLSearchParams(window.location.search);
-          const token = params.get('token');
-          if (!token) throw new Error('token missing');
-
-          await signInWithCustomToken(auth, token);
-          window.location.replace('/'); // 成功 → トップへ
-        } catch (err) {
-          const code = err?.code || 'unknown';
-          const msg  = err?.message || JSON.stringify(err);
-          console.error('[line-signed] error:', err);
-          alert(`サインインに失敗しました\ncode: ${code}\nmessage: ${msg}`);
-          window.location.replace('/');  // 失敗してもトップに戻す
-        }
-      })();
-    </script>
-  </body>
-</html>
+---
+  // Astro側でバンドルに含める（これだけでOK）
+  import scriptUrl from '../scripts/line-signed.ts?url';
+  ---
+  <html lang="ja">
+    <head>
+      <meta charset="utf-8" />
+      <title>LINE サインイン処理中…</title>
+    </head>
+    <body>
+      <p>LINE サインイン処理中…</p>
+      <!-- Viteでバンドルされたモジュールを読み込む -->
+      <script type="module" src={scriptUrl}></script>
+    </body>
+  </html>
