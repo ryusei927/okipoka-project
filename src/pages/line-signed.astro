@@ -1,7 +1,3 @@
----
-import { auth } from '../lib/firebase'; // Firebase 初期化から export した auth を利用
-import { signInWithCustomToken } from 'firebase/auth';
----
 
 <html lang="ja">
   <head>
@@ -10,23 +6,26 @@ import { signInWithCustomToken } from 'firebase/auth';
   </head>
   <body>
     <p>LINE サインイン処理中…</p>
+
     <script type="module">
+      // ★ ブラウザ実行のスクリプト内で import する（これがポイント）
+      import { auth } from '../lib/firebase';
+      import { signInWithCustomToken } from 'firebase/auth';
+
       (async () => {
         try {
           const params = new URLSearchParams(window.location.search);
           const token = params.get('token');
-          if (!token) {
-            alert("サインイントークンが見つかりません。");
-            location.replace("/");
-            return;
-          }
-          // Firebase クライアントでサインイン
+          if (!token) throw new Error('token missing');
+
           await signInWithCustomToken(auth, token);
-          location.replace("/");
+          window.location.replace('/'); // 成功 → トップへ
         } catch (err) {
-          console.error("[line-signed] error:", err);
-          alert("サインインに失敗しました");
-          location.replace("/");
+          const code = err?.code || 'unknown';
+          const msg  = err?.message || JSON.stringify(err);
+          console.error('[line-signed] error:', err);
+          alert(`サインインに失敗しました\ncode: ${code}\nmessage: ${msg}`);
+          window.location.replace('/');  // 失敗してもトップに戻す
         }
       })();
     </script>
