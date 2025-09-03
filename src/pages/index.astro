@@ -1,6 +1,5 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
-import AuthButton from '../components/AuthButton.tsx';
 import UpcomingTournaments from '../components/UpcomingTournaments.tsx';
 ---
 <AppLayout>
@@ -8,7 +7,7 @@ import UpcomingTournaments from '../components/UpcomingTournaments.tsx';
     <!-- ヘッダ行（右にログインボタン） -->
     <div class="section" style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
       <h1 class="section__title">今日・明日のトーナメント</h1>
-      <AuthButton client:load />
+      <a href="/api/line/login" class="btn-line">LINEでログイン</a>
     </div>
 
     <!-- フィルタ行（箱だけ先に） -->
@@ -30,3 +29,14 @@ import UpcomingTournaments from '../components/UpcomingTournaments.tsx';
     </div>
   </div>
 </AppLayout>
+<style>
+  .btn-line {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: #06c755;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+</style>
