@@ -1,4 +1,5 @@
-import { auth } from '/src/lib/firebase.ts';
+// src/scripts/line-signed.ts
+import { auth } from '../lib/firebase';
 import { signInWithCustomToken } from 'firebase/auth';
 
 (async () => {
