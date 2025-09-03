@@ -1,0 +1,19 @@
+---
+---
+<html lang="ja">
+  <body>
+    <p>LINE サインイン処理中…</p>
+    <script type="module">
+      import { auth } from '/src/lib/firebase.ts';
+      import { signInWithCustomToken } from 'firebase/auth';
+
+      const params = new URLSearchParams(location.search);
+      const token = params.get('token');
+      if (!token) location.replace('/');
+
+      signInWithCustomToken(auth, token)
+        .then(() => location.replace('/'))
+        .catch((e) => { console.error(e); alert('サインイン失敗'); location.replace('/'); });
+    </script>
+  </body>
+</html>
