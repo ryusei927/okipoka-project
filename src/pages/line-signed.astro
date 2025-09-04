@@ -1,3 +1,7 @@
+---
+import { handleLineSigned } from "../scripts/line-signed";
+---
+
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
@@ -5,6 +9,9 @@
   </head>
   <body>
     <p>LINE サインイン処理中…</p>
-    <script type="module" src="../scripts/line-signed.ts"></script>
+    <script type="module">
+      import { handleLineSigned } from "../scripts/line-signed.ts";
+      handleLineSigned();
+    </script>
   </body>
 </html>
