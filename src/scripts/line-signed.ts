@@ -4,17 +4,17 @@ import { signInWithCustomToken } from 'firebase/auth';
 
 (async () => {
   try {
-    const params = new URLSearchParams(location.search);
+    const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     if (!token) throw new Error('token missing');
-    console.log('[line-signed] got token', token.slice(0, 10) + '...');
 
     await signInWithCustomToken(auth, token);
-    console.log('[line-signed] signIn success');
-    window.location.href = '/'; // replace でもOK
-  } catch (e) {
-    console.error('[line-signed] signIn error:', e);
-    alert('LINEサインインに失敗しました。トップに戻ります。');
-    window.location.href = '/';
+    window.location.replace('/');
+  } catch (err: any) {
+    const code = err?.code || 'unknown';
+    const msg  = err?.message || JSON.stringify(err);
+    console.error('[line-signed] error:', err);
+    alert(`サインインに失敗しました\ncode: ${code}\nmessage: ${msg}`);
+    window.location.replace('/');
   }
 })();
