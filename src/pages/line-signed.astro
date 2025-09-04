@@ -1,5 +1,5 @@
 ---
-import { handleLineSigned } from "../scripts/line-signed";
+// ここのimport文は不要なので削除しました
 export const prerender = false;
 ---
 
@@ -10,7 +10,7 @@ export const prerender = false;
   </head>
   <body>
     <p>LINE サインイン処理中…</p>
-    <script type="module">
+    <script>
       import { handleLineSigned } from "../scripts/line-signed.ts";
       handleLineSigned();
     </script>
